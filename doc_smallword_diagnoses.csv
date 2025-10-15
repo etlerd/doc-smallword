@@ -1,0 +1,51 @@
+Diagnosis,Difficulty
+Arrhythmia,Easy
+Pneumonia,Easy
+Fracture,Easy
+Hypertension,Easy
+Appendicitis,Easy
+Anemia,Easy
+Migraine,Easy
+Asthma,Easy
+Gastritis,Easy
+Arthritis,Easy
+Cellulitis,Easy
+Otitis Media,Easy
+Tonsillitis,Easy
+Dermatitis,Easy
+Concussion,Easy
+Influenza,Easy
+Sinusitis,Easy
+Urinary Tract Infection,Easy
+Gastroenteritis,Easy
+Vertigo,Easy
+Thrombosis,Medium
+Epilepsy,Medium
+Pancreatitis,Medium
+Hepatitis,Medium
+Nephrolithiasis,Medium
+Myocardial Infarction,Medium
+Pulmonary Embolism,Medium
+Hypothyroidism,Medium
+Hyperthyroidism,Medium
+Crohn's Disease,Medium
+Ulcerative Colitis,Medium
+Endometriosis,Medium
+Cholecystitis,Medium
+Celiac Disease,Medium
+Multiple Sclerosis,Medium
+Parkinson's Disease,Medium
+Glaucoma,Medium
+Cataract,Medium
+Psoriasis,Medium
+Scoliosis,Medium
+Amyotrophic Lateral Sclerosis,Hard
+Myasthenia Gravis,Hard
+Systemic Lupus Erythematosus,Hard
+Guillain-Barre Syndrome,Hard
+Sarcoidosis,Hard
+Cushing's Syndrome,Hard
+Addison's Disease,Hard
+Hemochromatosis,Hard
+Marfan Syndrome,Hard
+Creutzfeldt-Jakob Disease,Hard

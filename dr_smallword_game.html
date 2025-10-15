@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dr. Smallword</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        h1 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .tagline {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1em;
+            font-style: italic;
+        }
+
+        .status-message {
+            background: rgba(255,255,255,0.95);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .status-success {
+            color: #27ae60;
+        }
+
+        .status-error {
+            color: #e74c3c;
+        }
+
+        .status-info {
+            color: #3498db;
+        }
+
+        .game-container {
+            width: 100%;
+            max-width: 900px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .card-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform-style: preserve-3d;
+            transition: transform 0.3s;
+        }
+
+        .card-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .card-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .diagnosis-title { color: #e74c3c; }
+        .role-title { color: #3498db; }
+        .quirk-title { color: #9b59b6; }
+
+        .card-content {
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            bottom: -50%;
+            left: -50%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .card-section:hover .card-content::before {
+            transform: translateX(100%);
+        }
+
+        .card-text {
+            font-size: 1.2em;
+            text-align: center;
+            color: #2c3e50;
+            font-weight: 500;
+            z-index: 1;
+            position: relative;
+        }
+
+        .difficulty-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-left: 10px;
+            text-transform: uppercase;
+        }
+
+        .difficulty-easy {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .difficulty-medium {
+            background: #f39c12;
+            color: white;
+        }
+
+        .difficulty-hard {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .deal-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .deal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .deal-btn:active {
+            transform: translateY(0);
+        }
+
+        .reset-btn {
+            margin-top: 30px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .reset-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .deck-status {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .instructions {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 15px;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .instructions h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .instructions code {
+            background: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardFlip {
+            0% {
+                transform: rotateY(0);
+            }
+            50% {
+                transform: rotateY(90deg);
+            }
+            100% {
+                transform: rotateY(0);
+            }
+        }
+
+        .card-flip {
+            animation: cardFlip 0.6s ease;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .card-text {
+                font-size: 1.1em;
+            }
+            
+            .card-section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🩺 Dr. Smallword 🎭</h1>
+        <div class="tagline">Medical Improv at its Finest!</div>
+    </div>
+
+    <div id="status-message"></div>
+
+    <div class="game-container">
+        <div class="card-section">
+            <div class="card-header">
+                <span class="card-title diagnosis-title">📋 Diagnosis</span>
+                <button class="deal-btn" onclick="dealCard('diagnosis')">Deal New Card</button>
+            </div>
+            <div class="card-content" id="diagnosis-card">
+                <div class="card-text" id="diagnosis-text">Loading...</div>
+            </div>
+            <div class="deck-status" id="diagnosis-status"></div>
+        </div>
+
+        <div class="card-section">
+            <div class="card-header">
+                <span class="card-title role-title">👨‍👩‍👧‍👦 Family Role</span>
+                <button class="deal-btn" onclick="dealCard('role')">Deal New Card</button>
+            </div>
+            <div class="card-content" id="role-card">
+                <div class="card-text" id="role-text">Loading...</div>
+            </div>
+            <div class="deck-status" id="role-status"></div>
+        </div>
+
+        <div class="card-section">
+            <div class="card-header">
+                <span class="card-title quirk-title">🎨 Personality Quirk</span>
+                <button class="deal-btn" onclick="dealCard('quirk')">Deal New Card</button>
+            </div>
+            <div class="card-content" id="quirk-card">
+                <div class="card-text" id="quirk-text">Loading...</div>
+            </div>
+            <div class="deck-status" id="quirk-status"></div>
+        </div>
+    </div>
+
+    <button class="reset-btn" onclick="resetGame()">🔄 Reset All Decks</button>
+
+    <div class="instructions">
+        <h3>📁 How to Use Your CSV Files:</h3>
+        <ol>
+            <li>Place this HTML file in the same folder as your three CSV files:
+                <ul>
+                    <li><code>doc_smallword_diagnoses.csv</code></li>
+                    <li><code>doc_smallword_family_roles.csv</code></li>
+                    <li><code>doc_smallword_personality_quirks.csv</code></li>
+                </ul>
+            </li>
+            <li>Start a local web server in that folder:
+                <ul>
+                    <li><strong>Python 3:</strong> <code>python -m http.server 8000</code></li>
+                    <li><strong>Python 2:</strong> <code>python -m SimpleHTTPServer 8000</code></li>
+                    <li><strong>Node.js:</strong> <code>npx http-server</code></li>
+                    <li><strong>VS Code:</strong> Use the "Live Server" extension</li>
+                </ul>
+            </li>
+            <li>Open your browser to <code>http://localhost:8000</code> (or whatever port you used)</li>
+            <li>Edit your CSV files anytime - just refresh the page to load the new content!</li>
+        </ol>
+        <p><strong>Note:</strong> The game has backup data built-in, so it will still work even without the CSV files.</p>
+    </div>
+
+    <script>
+        // Game data storage
+        const gameData = {
+            diagnoses: [],
+            roles: [],
+            quirks: []
+        };
+
+        // Track shown cards
+        const shownCards = {
+            diagnosis: [],
+            role: [],
+            quirk: []
+        };
+
+        // Fallback data if CSV files can't be loaded
+        const fallbackData = {
+            diagnoses: [
+                { diagnosis: "Arrhythmia", difficulty: "Easy" },
+                { diagnosis: "Pneumonia", difficulty: "Easy" },
+                { diagnosis: "Fracture", difficulty: "Easy" },
+                { diagnosis: "Hypertension", difficulty: "Easy" },
+                { diagnosis: "Appendicitis", difficulty: "Easy" }
+            ],
+            roles: [
+                "Mom",
+                "Dad",
+                "Grandma",
+                "Grandpa",
+                "Sister"
+            ],
+            quirks: [
+                "Thinks essential oils cure everything",
+                "Refuses to stop Googling symptoms mid-game",
+                "Won't sit still & keeps cleaning or texting",
+                "Yells over everyone",
+                "Convinced it's just gas"
+            ]
+        };
+
+        // Parse CSV content
+        function parseCSV(content) {
+            const lines = content.split(/\r?\n/).filter(line => line.trim());
+            if (lines.length === 0) return [];
+
+            // Check if first line is a header
+            const firstLine = lines[0];
+            const hasHeader = firstLine.includes('Diagnosis') || 
+                              firstLine.includes('Family Role') || 
+                              firstLine.includes('Personality Quirk');
+            
+            const dataLines = hasHeader ? lines.slice(1) : lines;
+            
+            return dataLines.map(line => {
+                // Handle CSV with potential commas in quoted values
+                const matches = [];
+                let current = '';
+                let inQuotes = false;
+                
+                for (let i = 0; i < line.length; i++) {
+                    const char = line[i];
+                    
+                    if (char === '"') {
+                        inQuotes = !inQuotes;
+                    } else if (char === ',' && !inQuotes) {
+                        matches.push(current.trim());
+                        current = '';
+                    } else {
+                        current += char;
+                    }
+                }
+                
+                if (current) {
+                    matches.push(current.trim());
+                }
+                
+                return matches;
+            }).filter(row => row.length > 0 && row[0]);
+        }
+
+        // Load CSV files
+        async function loadCSVFiles() {
+            const statusEl = document.getElementById('status-message');
+            let loadedFiles = 0;
+            let failedFiles = [];
+
+            try {
+                // Try to load diagnoses CSV
+                try {
+                    const diagResponse = await fetch('doc_smallword_diagnoses.csv');
+                    if (diagResponse.ok) {
+                        const text = await diagResponse.text();
+                        const rows = parseCSV(text);
+                        gameData.diagnoses = rows.map(row => ({
+                            diagnosis: row[0],
+                            difficulty: row[1] || 'Medium'
+                        }));
+                        loadedFiles++;
+                    } else {
+                        throw new Error('File not found');
+                    }
+                } catch (e) {
+                    failedFiles.push('diagnoses');
+                    gameData.diagnoses = fallbackData.diagnoses;
+                }
+
+                // Try to load family roles CSV
+                try {
+                    const roleResponse = await fetch('doc_smallword_family_roles.csv');
+                    if (roleResponse.ok) {
+                        const text = await roleResponse.text();
+                        const rows = parseCSV(text);
+                        gameData.roles = rows.map(row => row[0]);
+                        loadedFiles++;
+                    } else {
+                        throw new Error('File not found');
+                    }
+                } catch (e) {
+                    failedFiles.push('family roles');
+                    gameData.roles = fallbackData.roles;
+                }
+
+                // Try to load personality quirks CSV
+                try {
+                    const quirkResponse = await fetch('doc_smallword_personality_quirks.csv');
+                    if (quirkResponse.ok) {
+                        const text = await quirkResponse.text();
+                        const rows = parseCSV(text);
+                        gameData.quirks = rows.map(row => row[0]);
+                        loadedFiles++;
+                    } else {
+                        throw new Error('File not found');
+                    }
+                } catch (e) {
+                    failedFiles.push('personality quirks');
+                    gameData.quirks = fallbackData.quirks;
+                }
+
+                // Show status message
+                if (loadedFiles === 3) {
+                    statusEl.innerHTML = `<div class="status-message status-success">✅ Loaded all CSV files successfully! (${gameData.diagnoses.length} diagnoses, ${gameData.roles.length} roles, ${gameData.quirks.length} quirks)</div>`;
+                } else if (loadedFiles > 0) {
+                    statusEl.innerHTML = `<div class="status-message status-info">⚠️ Loaded ${loadedFiles}/3 CSV files. Using fallback data for: ${failedFiles.join(', ')}</div>`;
+                } else {
+                    statusEl.innerHTML = `<div class="status-message status-error">📝 No CSV files found. Using demo data. See instructions below to use your own CSV files.</div>`;
+                }
+
+            } catch (error) {
+                console.error('Error loading CSV files:', error);
+                statusEl.innerHTML = `<div class="status-message status-error">📝 Using demo data. See instructions below to use your own CSV files.</div>`;
+                
+                // Use fallback data
+                gameData.diagnoses = fallbackData.diagnoses;
+                gameData.roles = fallbackData.roles;
+                gameData.quirks = fallbackData.quirks;
+            }
+
+            // Start the game
+            initializeGame();
+        }
+
+        // Initialize game
+        function initializeGame() {
+            dealCard('diagnosis');
+            dealCard('role');
+            dealCard('quirk');
+        }
+
+        // Deal a new card
+        function dealCard(type) {
+            let availableCards, cardElement, textElement, statusElement;
+            
+            if (type === 'diagnosis') {
+                availableCards = gameData.diagnoses.filter((card, index) => 
+                    !shownCards.diagnosis.includes(index)
+                );
+                cardElement = document.getElementById('diagnosis-card');
+                textElement = document.getElementById('diagnosis-text');
+                statusElement = document.getElementById('diagnosis-status');
+                
+                if (availableCards.length === 0) {
+                    textElement.innerHTML = "Deck exhausted! 🎯";
+                    statusElement.textContent = `All ${gameData.diagnoses.length} cards shown`;
+                    return;
+                }
+                
+                const randomIndex = gameData.diagnoses.indexOf(
+                    availableCards[Math.floor(Math.random() * availableCards.length)]
+                );
+                shownCards.diagnosis.push(randomIndex);
+                
+                const card = gameData.diagnoses[randomIndex];
+                const difficultyClass = `difficulty-${card.difficulty.toLowerCase()}`;
+                textElement.innerHTML = `${card.diagnosis} <span class="difficulty-badge ${difficultyClass}">${card.difficulty}</span>`;
+                statusElement.textContent = `Cards remaining: ${gameData.diagnoses.length - shownCards.diagnosis.length} / ${gameData.diagnoses.length}`;
+                
+            } else if (type === 'role') {
+                availableCards = gameData.roles.filter((card, index) => 
+                    !shownCards.role.includes(index)
+                );
+                cardElement = document.getElementById('role-card');
+                textElement = document.getElementById('role-text');
+                statusElement = document.getElementById('role-status');
+                
+                if (availableCards.length === 0) {
+                    textElement.innerHTML = "Deck exhausted! 🎯";
+                    statusElement.textContent = `All ${gameData.roles.length} cards shown`;
+                    return;
+                }
+                
+                const randomIndex = gameData.roles.indexOf(
+                    availableCards[Math.floor(Math.random() * availableCards.length)]
+                );
+                shownCards.role.push(randomIndex);
+                textElement.innerHTML = gameData.roles[randomIndex];
+                statusElement.textContent = `Cards remaining: ${gameData.roles.length - shownCards.role.length} / ${gameData.roles.length}`;
+                
+            } else if (type === 'quirk') {
+                availableCards = gameData.quirks.filter((card, index) => 
+                    !shownCards.quirk.includes(index)
+                );
+                cardElement = document.getElementById('quirk-card');
+                textElement = document.getElementById('quirk-text');
+                statusElement = document.getElementById('quirk-status');
+                
+                if (availableCards.length === 0) {
+                    textElement.innerHTML = "Deck exhausted! 🎯";
+                    statusElement.textContent = `All ${gameData.quirks.length} cards shown`;
+                    return;
+                }
+                
+                const randomIndex = gameData.quirks.indexOf(
+                    availableCards[Math.floor(Math.random() * availableCards.length)]
+                );
+                shownCards.quirk.push(randomIndex);
+                textElement.innerHTML = gameData.quirks[randomIndex];
+                statusElement.textContent = `Cards remaining: ${gameData.quirks.length - shownCards.quirk.length} / ${gameData.quirks.length}`;
+            }
+            
+            // Animate card flip
+            cardElement.classList.add('card-flip');
+            setTimeout(() => cardElement.classList.remove('card-flip'), 600);
+        }
+
+        // Reset the game
+        function resetGame() {
+            shownCards.diagnosis = [];
+            shownCards.role = [];
+            shownCards.quirk = [];
+            
+            dealCard('diagnosis');
+            dealCard('role');
+            dealCard('quirk');
+        }
+
+        // Load game when page loads
+        window.addEventListener('DOMContentLoaded', loadCSVFiles);
+    </script>
+</body>
+</html>
