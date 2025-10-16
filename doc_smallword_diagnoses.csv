@@ -1,51 +1,51 @@
 Diagnosis,Difficulty
-Arrhythmia,Easy
-Pneumonia,Easy
-Fracture,Easy
-Hypertension,Easy
-Appendicitis,Easy
-Anemia,Easy
-Migraine,Easy
-Asthma,Easy
-Gastritis,Easy
-Arthritis,Easy
-Cellulitis,Easy
-Otitis Media,Easy
-Tonsillitis,Easy
-Dermatitis,Easy
-Concussion,Easy
-Influenza,Easy
-Sinusitis,Easy
-Urinary Tract Infection,Easy
-Gastroenteritis,Easy
-Vertigo,Easy
-Thrombosis,Medium
-Epilepsy,Medium
-Pancreatitis,Medium
-Hepatitis,Medium
-Nephrolithiasis,Medium
-Myocardial Infarction,Medium
-Pulmonary Embolism,Medium
-Hypothyroidism,Medium
-Hyperthyroidism,Medium
-Crohn's Disease,Medium
-Ulcerative Colitis,Medium
-Endometriosis,Medium
-Cholecystitis,Medium
-Celiac Disease,Medium
-Multiple Sclerosis,Medium
-Parkinson's Disease,Medium
-Glaucoma,Medium
-Cataract,Medium
-Psoriasis,Medium
-Scoliosis,Medium
-Amyotrophic Lateral Sclerosis,Hard
-Myasthenia Gravis,Hard
-Systemic Lupus Erythematosus,Hard
-Guillain-Barre Syndrome,Hard
-Sarcoidosis,Hard
-Cushing's Syndrome,Hard
-Addison's Disease,Hard
-Hemochromatosis,Hard
-Marfan Syndrome,Hard
-Creutzfeldt-Jakob Disease,Hard
+Athlete’s Foot,Easy
+Pink Eye (Conjunctivitis),Easy
+Hemorrhoids,Easy
+Flatulence,Easy
+Hiccups,Easy
+Heartburn (GERD),Easy
+Halitosis (Bad Breath),Easy
+Tension Headache,Easy
+Dandruff (Seborrheic Dermatitis),Easy
+Cold Sore (Herpes Labialis),Easy
+Acne,Easy
+Jock Itch (Tinea Cruris),Easy
+Fungal Toenail Infection (Onychomycosis),Easy
+Nosebleed (Epistaxis),Easy
+Earwax Impaction,Easy
+Allergic Rhinitis (Hay Fever),Easy
+Excessive Sweating (Hyperhidrosis),Easy
+Motion Sickness,Easy
+Voice Loss (Laryngitis),Easy
+Eczema,Easy
+Sciatica,Medium
+Carpal Tunnel Syndrome,Medium
+Plantar Fasciitis,Medium
+Shingles,Medium
+Sinus Infection,Medium
+Poison Ivy Rash (Contact Dermatitis),Medium
+Vertigo (Benign Positional),Medium
+Cold (Viral Rhinitis),Medium
+Stye (Hordeolum),Medium
+Ringworm (Tinea Corporis),Medium
+Hangover (Alcohol-Induced Gastritis),Medium
+Caffeine Withdrawal Headache,Medium
+Dehydration,Medium
+Sleep Deprivation,Medium
+Jet Lag,Medium
+Mild Food Poisoning,Medium
+Sunburn,Medium
+Sedentary Back Pain,Medium
+Overuse Injury,Medium
+Constipation,Medium
+Muscle Strain,Hard
+Mild Anxiety,Hard
+Seasonal Affective Disorder,Hard
+Low Iron (Mild Anemia),Hard
+Vitamin D Deficiency,Hard
+Acid Reflux,Hard
+Bruise (Contusion),Hard
+Mild Allergic Reaction,Hard
+Low Blood Sugar (Hypoglycemia),Hard
+Canker Sore,Hard
